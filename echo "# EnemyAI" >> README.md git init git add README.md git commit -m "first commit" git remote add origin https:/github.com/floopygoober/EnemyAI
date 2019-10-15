@@ -1,0 +1,71 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyAI : MonoBehaviour
+{
+
+    public GameObject thePlayer;
+    public float targetDistance;
+    public float allowedRange = 40;
+    public GameObject theEnemy;
+    public float enemySpeed;
+    public int attackTrigger;
+    public RaycastHit shot;
+    public int dealingDamage;
+
+    void Update()
+    {
+        //right here is where the spider changes its orientation to be looking at the player
+        transform.LookAt(thePlayer.transform);
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out shot))
+        {//then it checks to see if it is possible to target the player based on range
+            targetDistance = shot.distance;
+            //if (targetDistance <= allowedRange)
+            //{
+            //    enemySpeed = 0.05f;
+            //    if (attackTrigger == 0)
+            //    {//moving to the player
+            //        theEnemy.GetComponent<Animation>().Play("walk");
+            //        transform.position = Vector3.MoveTowards(transform.position, thePlayer.transform.position, enemySpeed);
+            //    }
+            //}
+            //else
+            //{//otherwise it stays idle
+            //    enemySpeed = 0;
+            //    theEnemy.GetComponent<Animation>().Play("idle");
+            //}
+        }
+        //if (attackTrigger == 1)
+        //{
+        //    if (dealingDamage == 0)
+        //    {
+        //        enemySpeed = 0;
+        //        theEnemy.GetComponent<Animation>().Play("attack");
+        //        StartCoroutine(takingDamage());
+        //    }
+        //}
+    }
+
+    void OnTriggerEnter()
+    {
+        attackTrigger = 1;
+    }
+
+    void OnTriggerExit()
+    {
+        attackTrigger = 0;
+    }
+
+    //IEnumerator takingDamage()
+    //{//where the damage is calculated and dealt to the player with a cool down to prevent spam damage. 
+    //    dealingDamage = 2;
+    //    yield return new WaitForSeconds(0.5f);
+    //    if (GuardEnemy.globalGuard != 6)
+    //    {
+    //        HealthMonitor.healthValue -= 1;
+    //    }
+    //    yield return new WaitForSeconds(0.4f);
+    //    dealingDamage = 0;
+    //}
+}
