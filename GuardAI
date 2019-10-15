@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GuardEnemy : MonoBehaviour
+{
+
+    public int enemyHealth = 10;
+    public GameObject theGuard;
+    public int guardStatus;
+    public int baseXp = 10;
+    public int calculatedXp;
+    public EnemyAI guardAIScript;
+    public static int globalGuard;
+
+    void Start()
+    {
+        guardAIScript = GetComponent<EnemyAI>();
+    }
+
+    void DeductPoints(int damageAmount)
+    {
+        enemyHealth -= damageAmount;
+    }
+
+    void Update()
+    {
+        //globalGuard = guardStatus;
+        //if (enemyHealth <= 0)
+        //{
+        //    if (guardStatus == 0)
+        //    {
+        //        StartCoroutine(deathguard());
+        //    }
+        //}
+    }
+
+    IEnumerator deathGuard()
+    {
+        guardAIScript.enabled = false;
+        guardStatus = 6;
+        //calculatedXp = baseXp * GlobalLevel.currentLevel;
+        //GlobalExp.currentExp += calculatedXp;
+        yield return new WaitForSeconds(0.5f);
+        theGuard.GetComponent<Animation>().Play("die");
+    }
+}
